@@ -2,8 +2,6 @@
 using MobileTicket.Services;
 using NUnit.Framework;
 using System;
-using System.Linq;
-using System.Security.Cryptography;
 
 namespace MobileTicket.Tests
 {
@@ -13,13 +11,15 @@ namespace MobileTicket.Tests
         byte[] header = Convert.FromBase64String("o0NhbGdlRVMyNTZDa2lkQjE4Q2lpZEEx");
         byte[] payload = Convert.FromBase64String("oWIxMIGqZXNfc3J2gWIxMGVzX3ZwcxpWCbhgZXNfcGF4gqJjbnVtYTFjY2F0YWGiY251bWEyY2NhdGFlZHNfZnKCCmMyNTBlc192ZXJhMWVzX3RpZGQxMDI0ZHNfcnYaAAFRgGVzX3ZwZRpWCwngZHNfdG+CCmMyNDBkc19mYaJmYW1vdW50YjQ4ZGNvZGVjc2Vr");
         byte[] signature = Convert.FromBase64String("MEUCIQDRPXHs1B9q60eFjGSQGh+GYJwMGCtgR6hpTFfSS9fcLAIgRvaM/3oQSaEAgvnnF9AEW/llZst/JpUnDnofUgvtWAM=");
+        IKeyRepository keyRepo;
         SignatureService service;
         IssuerSignedTicketBundle issuerSignedTicketBundle;
 
         [SetUp]
         public void SetUp()
         {
-            service = new SignatureService(new DemoKeyRepository());
+            keyRepo = new DemoKeyRepository();
+            service = new SignatureService(keyRepo);
 
             // Create a bundle
             var signatureHeader = new IssuerSignatureHeader(header);
@@ -60,6 +60,37 @@ namespace MobileTicket.Tests
             var result = service.Verify(mtb);
 
             Assert.That(result, Is.False);
+        }
+
+        [Test]
+        public void Sign_Creates_a_MTB_with_valid_header()
+        {
+            var ticketBundle = new TicketBundle();
+            var issuerTicketBundle = new IssuerSignedTicketBundle(ticketBundle);
+            var mtb = new MtbContainer(issuerTicketBundle);
+
+            var signed = service.Sign(mtb);
+            var signedBundle = signed.IssuerSignedTicketBundle;
+
+            Assert.That(signedBundle.Header, Is.Not.Null);
+            Assert.That(signedBundle.Header.alg, Is.EqualTo(SignatureAlgorithm.ES256));
+            Assert.That(signedBundle.Header.iid, Is.EqualTo(keyRepo.SigningIssuerId));
+            Assert.That(signedBundle.Header.kid, Is.EqualTo(keyRepo.SigningKeyId));
+        }
+
+        [Test]
+        public void Sign_Creates_a_MTB_with_valid_signature()
+        {
+            var ticketBundle = new TicketBundle();
+            var issuerTicketBundle = new IssuerSignedTicketBundle(ticketBundle);
+            var mtb = new MtbContainer(issuerTicketBundle);
+
+            var signed = service.Sign(mtb);
+            var signedBundle = signed.IssuerSignedTicketBundle;
+            var validationResult = service.Verify(mtb);
+
+            Assert.That(signedBundle.Signature, Is.Not.Null);
+            Assert.That(validationResult, Is.True);
         }
 
     }

@@ -34,8 +34,6 @@ namespace MobileTicket.Enteties
 
         private void Parse(byte[] bytes)
         {
-            var temp = Convert.ToBase64String(bytes);
-
             CBORObject cborObject;
             try
             {

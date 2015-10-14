@@ -48,9 +48,6 @@ namespace MobileTicket.Tests
             var partSize = x.Length;
             var partLength = BitConverter.GetBytes(partSize);
             var blob = BCRYPT_ECDSA_PUBLIC_P256_MAGIC.Concat(partLength).Concat(x).Concat(y).ToArray();
-
-            var blobTemp = Convert.ToBase64String(blob);
-
             var blobType = CngKeyBlobFormat.EccPublicBlob;
 
             return CngKey.Import(blob, blobType);
