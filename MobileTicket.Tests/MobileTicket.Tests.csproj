@@ -46,9 +46,12 @@
   <ItemGroup>
     <Compile Include="DemoKeyRepository.cs" />
     <Compile Include="IssuerSignatureHeaderTests.cs" />
+    <Compile Include="IssuerSignedTicketBundleTests.cs" />
+    <Compile Include="MtbContainerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SignatureConverterTests.cs" />
     <Compile Include="SignatureServiceTests.cs" />
+    <Compile Include="TicketBundleTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MobileTicket\MobileTicket.csproj">
