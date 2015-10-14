@@ -18,7 +18,7 @@ namespace MobileTicket.Tests
         [SetUp]
         public void SetUp()
         {
-            keyRepo = new DemoKeyRepository();
+            keyRepo = new TestKeyRepository();
             service = new SignatureService(keyRepo);
 
             // Create a bundle

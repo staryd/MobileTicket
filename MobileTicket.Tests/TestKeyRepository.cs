@@ -5,10 +5,10 @@ using System.Security.Cryptography;
 
 namespace MobileTicket.Tests
 {
-    public class DemoKeyRepository : IKeyRepository
+    public class TestKeyRepository : IKeyRepository
     {
         private byte[] BCRYPT_ECDSA_PUBLIC_P256_MAGIC = BitConverter.GetBytes(0x31534345);
-        private string _signingIid = "15";
+        private string _signingIid = "0";
         private string _signingKid = "1";
 
         public CngKey GetPrivateKey()
