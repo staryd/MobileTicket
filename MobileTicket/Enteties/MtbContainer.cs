@@ -55,7 +55,7 @@ namespace MobileTicket.Enteties
 
                 var p = dict["p"].GetByteString();
 
-                // TODO: Refaktorisera
+                // TODO: Refactor
                 var signedData = new SignedData(p);
 
                 if (signedData.SignatureType == SignatureType.Issuer)
