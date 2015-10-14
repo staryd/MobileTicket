@@ -41,10 +41,15 @@ namespace MobileTicket.Enteties
             if (alg == SignatureAlgorithm.None || string.IsNullOrEmpty(iid) || string.IsNullOrEmpty(kid))
                 throw new Exception("IssuerSignatureHeader is missing data");
 
+            // Strange. The format in example tickets are:
+            // { { h'616C67': "ES256", h'6B6964': h'3138', h'696964': h'31'} }
+            // I.e. value of alg is string not bytestring and order is alg, kid, iid
+
             var cborMap = CBORObject.NewMap();
-            cborMap.Add(Encoding.UTF8.GetBytes("alg"), Encoding.UTF8.GetBytes(alg.ToString()));
-            cborMap.Add(Encoding.UTF8.GetBytes("iid"), Encoding.UTF8.GetBytes(iid));
+            cborMap.Add(Encoding.UTF8.GetBytes("alg"), alg.ToString());
             cborMap.Add(Encoding.UTF8.GetBytes("kid"), Encoding.UTF8.GetBytes(kid));
+            cborMap.Add(Encoding.UTF8.GetBytes("iid"), Encoding.UTF8.GetBytes(iid));
+
 
             return cborMap.EncodeToBytes();
         }

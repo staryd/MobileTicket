@@ -23,7 +23,7 @@ namespace MobileTicket.Enteties
 
         private byte[] Payload { get; set; }
 
-        private byte[] signatureData;
+        public byte[] signingInput;
 
         
 
@@ -78,7 +78,7 @@ namespace MobileTicket.Enteties
                 cborArray.Add(byteStringList.ElementAt(0));
                 cborArray.Add(byteStringList.ElementAt(1));
 
-                signatureData = cborArray.EncodeToBytes();
+                signingInput = cborArray.EncodeToBytes();
             }
         }
     }
