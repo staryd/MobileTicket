@@ -53,6 +53,7 @@
     <Compile Include="Enumerations.cs" />
     <Compile Include="Extensions\CBORObjectExtensions.cs" />
     <Compile Include="Extensions\MtbContainerExtensions.cs" />
+    <Compile Include="MtbHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\IKeyRepository.cs" />
     <Compile Include="Services\SignatureService.cs" />
