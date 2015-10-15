@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobileTicket", "MobileTicket.csproj", "{9E613980-889B-46CF-B824-82579DC152A8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobileTicket", "MobileTicket\MobileTicket.csproj", "{9E613980-889B-46CF-B824-82579DC152A8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobileTicket.Tests", "..\MobileTicket.Tests\MobileTicket.Tests.csproj", "{A13AC5D2-467D-4289-B191-6F7BA700A28A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobileTicket.Tests", "MobileTicket.Tests\MobileTicket.Tests.csproj", "{A13AC5D2-467D-4289-B191-6F7BA700A28A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
